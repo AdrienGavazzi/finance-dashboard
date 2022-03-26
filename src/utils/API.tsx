@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://94.238.115.218:8000"; // http://localhost:8000
+const url = "https://finance.gavazziadrien.fr:8001"; // http://localhost:8000 | 94.238.115.218
 
 export function getInfo(): Promise<any> {
   return axios.get(url + "/finance/info");
