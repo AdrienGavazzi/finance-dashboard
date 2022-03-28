@@ -5,18 +5,12 @@ import {
   ChartSeriesItem,
   ChartCategoryAxis,
   ChartCategoryAxisItem,
-  ChartCategoryAxisCrosshair,
-  ChartCategoryAxisCrosshairTooltip,
   ChartValueAxis,
   ChartValueAxisItem,
-  ChartValueAxisCrosshair,
-  ChartValueAxisCrosshairTooltip,
-  ChartTitle,
 } from "@progress/kendo-react-charts";
 import { LineStyle } from "@progress/kendo-react-charts/dist/npm/field-types/line-style";
 
-import { getPerformance } from "../services/dataService";
-import Loading from "../layout/Loading";
+import Loading from "../../../layout/Loading";
 
 export default function PerformancePanel({
   data,

@@ -1,10 +1,10 @@
 import React from "react";
-import { Allocation, Position } from "./data/models";
+import { Allocation, DonutData, Position } from "./data/models";
 
 //import InfoPanel from "./panels/InfoPanel";
-import AllocationPanel from "./panels/AllocationPanel";
-import PerformancePanel from "./panels/PerformancePanel";
-import PositionsPanel from "./panels/PositionsPanel";
+import AllocationDonut from "./panels/Components/AllocationDonut";
+import PerformanceLine from "./panels/Components/PerformanceLine";
+import PositionsPanel2 from "./panels/PositionsPanel2";
 import {
   getFundAllocation,
   getPerformance,
@@ -13,10 +13,11 @@ import {
   getRealEstate,
   getCrypto,
   getValuePourcent,
+  getPerformanceHistory,
 } from "./services/dataService";
 
 export default function Dashboard() {
-  const [data, setData] = React.useState<Allocation[]>();
+  const [data, setData] = React.useState<DonutData[]>();
   const [data2, setData2] = React.useState<string[]>();
   const [categories, setCategories] = React.useState<string[]>();
   const [deposits, setDeposits] = React.useState<string[]>();
@@ -24,20 +25,30 @@ export default function Dashboard() {
   const [total, setTotal] = React.useState<any>();
   const [actions, setActions] = React.useState<Position[]>();
   const [totalAction, setTotalAction] = React.useState<any>();
-  const [crypto, setCrypto] = React.useState<Position[]>();
+  const [cryptos, setCryptos] = React.useState<Position[]>();
   const [totalCrypto, setTotalCrytpo] = React.useState<any>();
   const [realEstate, setRealEstate] = React.useState<Position[]>();
   const [totalRealEstate, setTotalRealEstate] = React.useState<any>();
-  const [allocationFund, setAllocationFund] = React.useState<[]>([]);
+  const [allocationFund, setAllocationFund] = React.useState<any>();
 
   React.useEffect(() => {
-    getFundAllocation().then((data: Allocation[]) => {
+    getInfo();
+
+    const interval = setInterval(() => {
+      getInfo();
+    }, 600000);
+    return () => clearInterval(interval);
+  }, []);
+
+  async function getInfo() {
+    getFundAllocation().then((data: any) => {
       setData(data);
     });
 
     var list: any = [];
+    var labels: any = [];
 
-    getPerformance().then((results: any) => {
+    getPerformanceHistory().then((results: any) => {
       setData2(results.perf);
       setCategories(results.categories);
       setDeposits(results.deposits);
@@ -46,73 +57,73 @@ export default function Dashboard() {
     getPositions().then((dataPosition: any) => {
       setPositions(dataPosition.position);
       setTotal(dataPosition.total);
+      labels.push("Etf " + dataPosition.total.total + "€");
       list.push({
-        category: "Etf " + dataPosition.total[0].total + "€",
         value: 0,
-        total: dataPosition.total[0].total,
+        total: dataPosition.total.total,
       });
-      setAllocationFund(getValuePourcent(list));
+      setAllocationFund({ labels, series: getValuePourcent(list) });
     });
 
     getActions().then((dataAction: any) => {
       setActions(dataAction.position);
       setTotalAction(dataAction.total);
+      labels.push("Action " + dataAction.total.total + "€");
       list.push({
-        category: "Action " + dataAction.total[0].total + "€",
         value: 0,
-        total: dataAction.total[0].total,
+        total: dataAction.total.total,
       });
-      setAllocationFund(getValuePourcent(list));
+      setAllocationFund({ labels, series: getValuePourcent(list) });
     });
 
     getRealEstate().then((dataRealEstate: any) => {
       setRealEstate(dataRealEstate.position);
       setTotalRealEstate(dataRealEstate.total);
+      labels.push("Real Estate " + dataRealEstate.total.total + "€");
       list.push({
-        category: "Real Estate " + dataRealEstate.total[0].total + "€",
         value: 0,
-        total: dataRealEstate.total[0].total,
+        total: dataRealEstate.total.total,
       });
-      setAllocationFund(getValuePourcent(list));
+      setAllocationFund({ labels, series: getValuePourcent(list) });
     });
 
     getCrypto().then((dataCrypto: any) => {
-      setCrypto(dataCrypto.position);
+      setCryptos(dataCrypto.position);
       setTotalCrytpo(dataCrypto.total);
+      labels.push("Crypto " + dataCrypto.total.total + "€");
       list.push({
-        category: "Crypto " + dataCrypto.total[0].total + "€",
         value: 0,
-        total: dataCrypto.total[0].total,
+        total: dataCrypto.total.total,
       });
-      setAllocationFund(getValuePourcent(list));
+      setAllocationFund({ labels, series: getValuePourcent(list) });
     });
-  }, []);
+  }
 
   return (
     <div className="panels">
       <div className="panel-first">
         <div className="panel-positions">
-          <PositionsPanel
+          <PositionsPanel2
             positions={positions}
             total={total}
             actions={actions}
             totalAction={totalAction}
             realEstate={realEstate}
             totalRealEstate={totalRealEstate}
-            crypto={crypto}
+            cryptos={cryptos}
             totalCrypto={totalCrypto}
           />
         </div>
       </div>
       <div className="panel-second">
         <div className="panel-allocation">
-          <AllocationPanel data={data} />
+          <AllocationDonut data={data} />
         </div>
         <div className="panel-allocation">
-          <AllocationPanel data={allocationFund} />
+          <AllocationDonut data={allocationFund} />
         </div>
         <div className="panel-balance">
-          <PerformancePanel
+          <PerformanceLine
             data={data2}
             categories={categories}
             deposits={deposits}

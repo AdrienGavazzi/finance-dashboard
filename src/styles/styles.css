@@ -1,0 +1,131 @@
+.MuiListItem-root.item {
+  margin: 5px auto;
+  width: 92%;
+  border-radius: 10px;
+}
+
+.MuiListItem-root.item-selected {
+  margin: 5px auto;
+  width: 92%;
+  border-radius: 10px;
+  background-image: linear-gradient(to right bottom, #0093e9, #80c5d0e0);
+  color: #ffffff;
+}
+
+.panel-info {
+  display: block;
+  position: relative;
+  justify-content: center;
+  width: 30%;
+  height: 45vh;
+}
+
+.panel-info-total {
+  position: absolute;
+  top: 0;
+  left: 2.5%;
+  width: 95%;
+  height: 17vh;
+  min-height: 17vh;
+  backdrop-filter: blur(1.5px);
+  padding-top: 20px;
+  padding-left: 30px;
+  border-radius: 10px;
+  box-shadow: 2px 5px 29px #00000044;
+  color: #ffffff;
+}
+
+.panel-info-total h3 {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.panel-info-data {
+  position: absolute;
+  top: 3vh;
+  width: 100%;
+  min-height: 22vh;
+  padding: 5px;
+  padding-top: 15vh;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+  box-shadow: 2px 5px 29px #00000025;
+}
+
+.price {
+  margin: 0px auto 0px 5px;
+  font-size: 35px;
+  font-weight: bolder;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: #53b326;
+}
+
+.icon {
+  border-radius: 50%;
+  padding: 2px;
+  margin-right: 3px;
+}
+
+.panel-chartelineOverlay {
+  position: absolute;
+  width: 20%;
+  height: 5vh;
+  margin-left: 4%;
+  border-radius: 10px;
+  backdrop-filter: blur(1.5px);
+  background-image: linear-gradient(to right bottom, #775dd0, #775dd0e0);
+  background-color: #ffffff44;
+  -webkit-box-shadow: 2px 5px 29px -12px #000000;
+  box-shadow: 2px 5px 29px #00000044;
+}
+
+.panel-charteline {
+  position: absolute;
+  width: 96%;
+  min-height: 30vh;
+  margin: 2%;
+  margin-top: 2vh;
+  border-radius: 10px;
+  background-color: #ffffff;
+  -webkit-box-shadow: 2px 5px 29px -12px #000000;
+  box-shadow: 0px 10px 20px #0000002a;
+}
+
+.panel-donut {
+  width: 88%;
+  height: 97%;
+  min-height: 30vh;
+  padding-top: 15%;
+  position: "relative";
+  margin: 2vh 4% 0% 4%;
+  border-radius: 10px;
+  background-color: #ffffff;
+  -webkit-box-shadow: 2px 5px 29px -12px #000000;
+  box-shadow: 0px 10px 20px #0000002a;
+}
+
+.panel-donut-overlay {
+  position: absolute;
+  width: 80%;
+  height: 5vh;
+  top: 0;
+  margin: 0% 8%;
+  border-radius: 10px;
+  backdrop-filter: blur(1.5px);
+  background-image: linear-gradient(to right bottom, #de2767, #e63671e0);
+  background-color: #ffffff44;
+  box-shadow: 2px 5px 29px #00000044;
+}
+
+.panel-TablePosition-cellule {
+  font-size: 12px;
+  padding: "5px";
+}

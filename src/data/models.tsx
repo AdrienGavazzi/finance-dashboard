@@ -26,6 +26,11 @@ export interface Allocation {
   value: number;
 }
 
+export interface DonutData {
+  series: [];
+  labels: [];
+}
+
 export interface Position {
   symbol: string;
   name: string;
@@ -34,4 +39,9 @@ export interface Position {
   variation: string;
   number: number;
   value: number;
+}
+
+export interface Page {
+  name: string;
+  path: string;
 }

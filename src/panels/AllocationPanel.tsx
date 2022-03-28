@@ -4,14 +4,11 @@ import {
   ChartLegend,
   ChartSeries,
   ChartSeriesItem,
-  ChartSeriesLabels,
-  ChartTitle,
+  ChartSeriesLabels, //ChartTitle,
   ChartTooltip,
 } from "@progress/kendo-react-charts";
 
-import { getFundAllocation } from "../services/dataService";
 import Loading from "../layout/Loading";
-import { Allocation } from "../data/models";
 
 const labelContent = (e: any) => `${e.value}%`;
 

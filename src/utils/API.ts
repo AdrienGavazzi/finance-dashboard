@@ -6,6 +6,10 @@ export function getInfo(): Promise<any> {
   return axios.get(url + "/finance/info");
 }
 
+export function getFundHistory(): Promise<any> {
+  return axios.get(url + "/finance/fund/history");
+}
+
 export function getEtfLives(): Promise<any> {
   return axios.get(url + "/finance/etf/live");
 }
