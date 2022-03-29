@@ -38,6 +38,9 @@ export default function PerformanceLine({
       toolbar: {
         show: false,
       },
+      sparkline: {
+        enabled: true,
+      },
     },
     xaxis: {
       categories: categories,
@@ -49,9 +52,9 @@ export default function PerformanceLine({
       show: false,
       min: 2100,
     },
-    colors: ["#16ACEA", "#D71B3B"],
+    colors: ["#16ACEA", "#d51a399a"],
     stroke: {
-      width: [3, 3],
+      width: [2.5, 2.5],
       curve: "smooth",
     },
     legend: {

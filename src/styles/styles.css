@@ -33,6 +33,7 @@
   border-radius: 10px;
   box-shadow: 2px 5px 29px #00000044;
   color: #ffffff;
+  overflow: hidden;
 }
 
 .panel-info-total h3 {
@@ -42,13 +43,30 @@
   margin-bottom: 0px;
 }
 
+.panel-info-total-chart {
+  float: right;
+  margin-right: 6%;
+  margin-top: -2%;
+}
+
+.panel-info-resum {
+  position: absolute;
+  top: 13.5vh;
+  right: 7%;
+  color: #ffffff;
+  background-color: #ffffff5b;
+  padding: 0px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
 .panel-info-data {
   position: absolute;
   top: 3vh;
   width: 100%;
   min-height: 22vh;
   padding: 5px;
-  padding-top: 15vh;
+  padding-top: 14.5vh;
   border-radius: 10px;
   backdrop-filter: blur(2px);
   box-shadow: 2px 5px 29px #00000025;
@@ -93,6 +111,7 @@
   min-height: 30vh;
   margin: 2%;
   margin-top: 2vh;
+  padding: 1%;
   border-radius: 10px;
   background-color: #ffffff;
   -webkit-box-shadow: 2px 5px 29px -12px #000000;

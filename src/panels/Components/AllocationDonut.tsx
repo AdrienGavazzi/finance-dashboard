@@ -16,6 +16,7 @@ export default function AllocationDonut({ data }: { data: any }) {
     chart: {
       type: "donut",
     },
+    colors: ["#0093E9", "#de2767", "#57CA22", "#FC6835", "#775dd0"],
     labels: data.labels,
     legend: {
       show: true,

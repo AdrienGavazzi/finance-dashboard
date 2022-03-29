@@ -37,3 +37,7 @@ export function getRealEstateLive(): Promise<any> {
 export function getCryptoLive(): Promise<any> {
   return axios.get(url + "/finance/crypto/live");
 }
+
+export function getHistoryDates(send: any): Promise<any> {
+  return axios.get(url + "/finance/fund/dateshistory", { params: send });
+}

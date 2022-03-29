@@ -18,6 +18,7 @@ export default function History() {
           value={value}
           onChange={(newValue: any) => {
             setValue(newValue);
+            console.log(newValue[0].toLocaleDateString());
           }}
           renderInput={(startProps: any, endProps: any) => (
             <React.Fragment>

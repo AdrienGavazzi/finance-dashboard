@@ -10,6 +10,7 @@ import {
   getInfo,
   getRealEstateLive,
   getFundHistory,
+  getHistoryDates,
 } from "../utils/API";
 import { setEtfHistoryStorage, setEtfStorage } from "../utils/utils";
 
@@ -213,4 +214,41 @@ export function getValuePourcent(list: any): any {
   }
 
   return series;
+}
+
+export async function getFundHistoryDates(
+  date1: any,
+  date2: any
+): Promise<any> {
+  var responseHistory: any = await getHistoryDates({ date1, date2 });
+
+  var etfSeries: any = [];
+  var etfLabels: any = [];
+
+  responseHistory.data.data.etf.forEach((element: any, index: any) => {
+    etfSeries.push(element.assets);
+    etfLabels.push(element.date);
+  });
+
+  var actionSeries: any = [];
+  var actionLabels: any = [];
+
+  responseHistory.data.data.action.forEach((element: any, index: any) => {
+    actionSeries.push(element.assets);
+    actionLabels.push(element.date);
+  });
+
+  var cryptoSeries: any = [];
+  var cryptoLabels: any = [];
+
+  responseHistory.data.data.crypto.forEach((element: any, index: any) => {
+    cryptoSeries.push(element.assets);
+    cryptoLabels.push(element.date);
+  });
+
+  return {
+    etf: { etfSeries, etfLabels },
+    action: { actionSeries, actionLabels },
+    crypto: { cryptoSeries, cryptoLabels },
+  };
 }

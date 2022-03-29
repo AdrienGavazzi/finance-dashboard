@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "hammerjs";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import {
   Drawer,
   List,
@@ -28,7 +34,24 @@ const useStyles: any = makeStyles({
 
 function App() {
   const classes = useStyles();
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  useEffect(() => {
+    switch (window.location.pathname) {
+      case "/":
+        setSelectedIndex(0);
+        break;
+      case "/dashboard":
+        setSelectedIndex(1);
+        break;
+      case "/history":
+        setSelectedIndex(2);
+        break;
+
+      default:
+        break;
+    }
+  }, []);
 
   return (
     <Router>
