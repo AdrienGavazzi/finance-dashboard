@@ -20,12 +20,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import EventIcon from "@mui/icons-material/Event";
 
+import ProtectedRoutes from "./ProtectedRoutes";
 import Dashboard from "./Dashboard";
 import Home from "./Home";
 import History from "./History";
 
 import "./App.scss";
 import "./styles/styles.css";
+import Login from "./panels/Login";
 
 const useStyles: any = makeStyles({
   drawerPaper: { width: "inherit" },
@@ -34,23 +36,10 @@ const useStyles: any = makeStyles({
 
 function App() {
   const classes = useStyles();
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState<string>("/home");
 
   useEffect(() => {
-    switch (window.location.pathname) {
-      case "/":
-        setSelectedIndex(0);
-        break;
-      case "/dashboard":
-        setSelectedIndex(1);
-        break;
-      case "/history":
-        setSelectedIndex(2);
-        break;
-
-      default:
-        break;
-    }
+    setSelectedIndex(window.location.pathname);
   }, []);
 
   return (
@@ -67,13 +56,13 @@ function App() {
             <Link to="/" className={classes.link}>
               <ListItem
                 button
-                selected={selectedIndex === 0}
-                onClick={(event) => setSelectedIndex(0)}
-                className={selectedIndex === 0 ? "item-selected" : "item"}
+                selected={selectedIndex === "/"}
+                onClick={(event) => setSelectedIndex("/")}
+                className={selectedIndex === "/" ? "item-selected" : "item"}
               >
                 <ListItemIcon>
                   <HomeIcon
-                    sx={{ color: selectedIndex === 0 ? "white" : "black" }}
+                    sx={{ color: selectedIndex === "/" ? "white" : "black" }}
                   />
                 </ListItemIcon>
                 <ListItemText primary={"Home"} />
@@ -82,13 +71,17 @@ function App() {
             <Link to="/dashboard" className={classes.link}>
               <ListItem
                 button
-                selected={selectedIndex === 1}
-                onClick={(event) => setSelectedIndex(1)}
-                className={selectedIndex === 1 ? "item-selected" : "item"}
+                selected={selectedIndex === "/dashboard"}
+                onClick={(event) => setSelectedIndex("/dashboard")}
+                className={
+                  selectedIndex === "/dashboard" ? "item-selected" : "item"
+                }
               >
                 <ListItemIcon>
                   <DashboardIcon
-                    sx={{ color: selectedIndex === 1 ? "white" : "black" }}
+                    sx={{
+                      color: selectedIndex === "/dashboard" ? "white" : "black",
+                    }}
                   />
                 </ListItemIcon>
                 <ListItemText primary={"Dashboard"} />
@@ -97,13 +90,17 @@ function App() {
             <Link to="/history" className={classes.link}>
               <ListItem
                 button
-                selected={selectedIndex === 2}
-                onClick={(event) => setSelectedIndex(2)}
-                className={selectedIndex === 2 ? "item-selected" : "item"}
+                selected={selectedIndex === "/history"}
+                onClick={(event) => setSelectedIndex("/history")}
+                className={
+                  selectedIndex === "/history" ? "item-selected" : "item"
+                }
               >
                 <ListItemIcon>
                   <EventIcon
-                    sx={{ color: selectedIndex === 2 ? "white" : "black" }}
+                    sx={{
+                      color: selectedIndex === "/history" ? "white" : "black",
+                    }}
                   />
                 </ListItemIcon>
                 <ListItemText primary={"History"} />
@@ -113,8 +110,11 @@ function App() {
         </Drawer>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/history" element={<History />} />
+          <Route path="/login" element={<Login />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/history" element={<History />} />
+          </Route>
         </Routes>
       </div>
     </Router>

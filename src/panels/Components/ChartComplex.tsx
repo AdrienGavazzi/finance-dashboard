@@ -3,16 +3,16 @@ import Chart from "react-apexcharts";
 
 import Loading from "../../layout/Loading";
 
-export default function PerformanceLine({
+export default function ChartComplex({
   data,
-  categories,
-  deposits,
+  labels,
+  titre,
 }: {
   data: any;
-  categories: any;
-  deposits?: any;
+  labels: any;
+  titre: any;
 }) {
-  if (!data || !categories) {
+  if (!data || !labels) {
     return <Loading />;
   }
 
@@ -21,35 +21,15 @@ export default function PerformanceLine({
       name: "value",
       data: data,
     },
-    {
-      name: "deposit",
-      data: deposits,
-    },
   ];
   const options: any = {
     chart: {
       type: "line",
-      zoom: {
-        enabled: false,
-      },
-      toolbar: {
-        show: false,
-      },
-      sparkline: {
-        enabled: true,
-      },
     },
     xaxis: {
-      categories: categories,
-      labels: {
-        show: false,
-      },
+      categories: labels,
     },
-    yaxis: {
-      show: false,
-      min: 2100,
-    },
-    colors: ["#16ACEA", "#d51a399a"],
+    colors: ["#16ACEA"],
     stroke: {
       width: [2.5, 2.5],
       curve: "smooth",
@@ -63,7 +43,7 @@ export default function PerformanceLine({
   };
 
   return (
-    <div style={{ position: "relative", height: "40vh" }}>
+    <div style={{ position: "relative" }}>
       <div className="panel-charteline">
         <Chart options={options} series={series} width="99%" height="350px" />
       </div>
@@ -75,7 +55,7 @@ export default function PerformanceLine({
             color: "#ffffff",
           }}
         >
-          Performance
+          {titre}
         </p>
       </div>
     </div>

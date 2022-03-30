@@ -18,3 +18,11 @@ export function setEtfHistoryStorage(data: any) {
 export function getEtfHistoryStorage(): any {
   return localStorage.getItem(variables.etfHistory);
 }
+
+export function setToken(token: any) {
+  return localStorage.setItem("token", token);
+}
+
+export function getToken(): any {
+  return localStorage.getItem("token");
+}
