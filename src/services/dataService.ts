@@ -222,33 +222,50 @@ export async function getFundHistoryDates(
 ): Promise<any> {
   var responseHistory: any = await getHistoryDates({ date1, date2 });
 
+  var globalSeries: any = [];
+  var globalDeposit: any = [];
+  var globalLabels: any = [];
+
+  responseHistory.data.data.global.forEach((element: any, index: any) => {
+    globalSeries.push(element.assets);
+    globalDeposit.push(element.deposit);
+    globalLabels.push(element.date);
+  });
+
   var etfSeries: any = [];
+  var etfDeposit: any = [];
   var etfLabels: any = [];
 
   responseHistory.data.data.etf.forEach((element: any, index: any) => {
     etfSeries.push(element.assets);
+    etfDeposit.push(element.deposit);
     etfLabels.push(element.date);
   });
 
   var actionSeries: any = [];
+  var actionDeposit: any = [];
   var actionLabels: any = [];
 
   responseHistory.data.data.action.forEach((element: any, index: any) => {
     actionSeries.push(element.assets);
+    actionDeposit.push(element.deposit);
     actionLabels.push(element.date);
   });
 
   var cryptoSeries: any = [];
+  var cryptoDeposit: any = [];
   var cryptoLabels: any = [];
 
   responseHistory.data.data.crypto.forEach((element: any, index: any) => {
     cryptoSeries.push(element.assets);
+    cryptoDeposit.push(element.deposit);
     cryptoLabels.push(element.date);
   });
 
   return {
-    etf: { etfSeries, etfLabels },
-    action: { actionSeries, actionLabels },
-    crypto: { cryptoSeries, cryptoLabels },
+    global: { globalSeries, globalDeposit, globalLabels },
+    etf: { etfSeries, etfDeposit, etfLabels },
+    action: { actionSeries, actionDeposit, actionLabels },
+    crypto: { cryptoSeries, cryptoDeposit, cryptoLabels },
   };
 }

@@ -8,20 +8,22 @@
 
 .panel-first {
   flex: 1;
+  padding: 0px 20px;
 }
 
 .panel-second {
   margin-top: 3vh;
   flex: 1;
+  padding: 0px 20px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .panel-positions {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .panel-position {
@@ -34,8 +36,13 @@
   position: relative;
 }
 
+.panel-allocation-fund {
+  position: absolute;
+  width: 60%;
+}
+
 .panel-balance {
-  flex: 4;
+  flex: 2;
 }
 
 .panel-etf {

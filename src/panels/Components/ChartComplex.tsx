@@ -7,10 +7,14 @@ export default function ChartComplex({
   data,
   labels,
   titre,
+  deposit,
+  colors,
 }: {
   data: any;
   labels: any;
   titre: any;
+  deposit?: any;
+  colors?: any;
 }) {
   if (!data || !labels) {
     return <Loading />;
@@ -22,6 +26,11 @@ export default function ChartComplex({
       data: data,
     },
   ];
+
+  if (deposit) {
+    series.push({ name: "Deposit", data: deposit });
+  }
+
   const options: any = {
     chart: {
       type: "line",
@@ -29,7 +38,7 @@ export default function ChartComplex({
     xaxis: {
       categories: labels,
     },
-    colors: ["#16ACEA"],
+    colors: colors ? colors : ["#16ACEA", "#d51a399a"],
     stroke: {
       width: [2.5, 2.5],
       curve: "smooth",
@@ -42,22 +51,5 @@ export default function ChartComplex({
     },
   };
 
-  return (
-    <div style={{ position: "relative" }}>
-      <div className="panel-charteline">
-        <Chart options={options} series={series} width="99%" height="350px" />
-      </div>
-      <div className="panel-chartelineOverlay">
-        <p
-          style={{
-            margin: "5px auto auto 10px",
-            fontSize: "22px",
-            color: "#ffffff",
-          }}
-        >
-          {titre}
-        </p>
-      </div>
-    </div>
-  );
+  return <Chart options={options} series={series} height="100%" width="100%" />;
 }

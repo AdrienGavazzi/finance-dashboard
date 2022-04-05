@@ -65,7 +65,9 @@ export default function PerformanceLine({
   return (
     <div style={{ position: "relative", height: "40vh" }}>
       <div className="panel-charteline">
-        <Chart options={options} series={series} width="99%" height="350px" />
+        <div style={{ margin: "1vh 0.5%" }}>
+          <Chart options={options} series={series} width="99%" height="350px" />
+        </div>
       </div>
       <div className="panel-chartelineOverlay">
         <p

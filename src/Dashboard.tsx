@@ -3,6 +3,7 @@ import { Allocation, DonutData, Position } from "./data/models";
 
 //import InfoPanel from "./panels/InfoPanel";
 import AllocationDonut from "./panels/Components/AllocationDonut";
+import DetailFund from "./panels/Components/DetailFund";
 import PerformanceLine from "./panels/Components/PerformanceLine";
 import PositionsPanel2 from "./panels/PositionsPanel2";
 import {
@@ -41,9 +42,9 @@ export default function Dashboard() {
   }, []);
 
   async function getInfo() {
-    getFundAllocation().then((data: any) => {
-      setData(data);
-    });
+    //    getFundAllocation().then((data: any) => {
+    //      setData(data);
+    //    });
 
     var list: any = [];
     var labels: any = [];
@@ -117,10 +118,10 @@ export default function Dashboard() {
       </div>
       <div className="panel-second">
         <div className="panel-allocation">
-          <AllocationDonut data={data} />
-        </div>
-        <div className="panel-allocation">
-          <AllocationDonut data={allocationFund} />
+          <DetailFund total={data2} deposit={deposits} />
+          <div className="panel-allocation-fund">
+            <AllocationDonut data={allocationFund} />
+          </div>
         </div>
         <div className="panel-balance">
           <PerformanceLine
