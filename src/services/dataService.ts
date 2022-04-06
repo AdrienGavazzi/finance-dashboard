@@ -137,7 +137,7 @@ export async function getActions(): Promise<any> {
 
   var position: any = [];
   var total: any = {
-    finance: "Actions",
+    finance: "Action",
     bourse: Number(responseActions.data.total).toFixed(1),
     total: Number(responseActions.data.total).toFixed(1),
     totalinvest: responseInfo.data.data.invest.action,

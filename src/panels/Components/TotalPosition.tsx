@@ -5,6 +5,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 
 import Loading from "../../layout/Loading";
+import { Link } from "react-router-dom";
 
 export default function TotalPosition({
   total,
@@ -80,7 +81,14 @@ export default function TotalPosition({
   return (
     <div style={{ position: "relative" }}>
       <div style={{ float: "left" }}>
-        <h3>{total.finance}</h3>
+        <h3
+          onClick={() =>
+            (window.location.href = "/details/" + total.finance.toLowerCase())
+          }
+          style={{ cursor: "pointer" }}
+        >
+          {total.finance}
+        </h3>
         <p className="price">{total.total} €</p>
         <p
           style={{

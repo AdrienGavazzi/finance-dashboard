@@ -17,18 +17,42 @@ import HistoryDetails from "./panels/Components/HistoryDetails";
 
 export default function History() {
   const [value, setValue] = React.useState<DateRange<Date>>([null, null]);
-  const [globalSeries, setGlobalSeries] = React.useState<string[]>();
-  const [globalDeposit, setGlobalDeposit] = React.useState<string[]>();
-  const [globalLabels, setGlobalLabels] = React.useState<string[]>();
-  const [etfSeries, setEtfSeries] = React.useState<string[]>();
-  const [etfDeposit, setEtfDeposit] = React.useState<string[]>();
-  const [etfLabels, setEtfLabels] = React.useState<string[]>();
-  const [actionSeries, setActionsSeries] = React.useState<string[]>();
-  const [actionDeposit, setActionDeposit] = React.useState<string[]>();
-  const [actionLabels, setActionsLabels] = React.useState<string[]>();
-  const [cryptoSeries, setCryptoSeries] = React.useState<string[]>();
-  const [cryptoDeposit, setCryptoDeposit] = React.useState<string[]>();
-  const [cryptoLabels, setCryptoLabels] = React.useState<string[]>();
+  const [globalSeries, setGlobalSeries] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [globalDeposit, setGlobalDeposit] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [globalLabels, setGlobalLabels] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [etfSeries, setEtfSeries] = React.useState<string[] | null | undefined>(
+    null
+  );
+  const [etfDeposit, setEtfDeposit] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [etfLabels, setEtfLabels] = React.useState<string[] | null | undefined>(
+    null
+  );
+  const [actionSeries, setActionsSeries] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [actionDeposit, setActionDeposit] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [actionLabels, setActionsLabels] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [cryptoSeries, setCryptoSeries] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [cryptoDeposit, setCryptoDeposit] = React.useState<
+    string[] | null | undefined
+  >(null);
+  const [cryptoLabels, setCryptoLabels] = React.useState<
+    string[] | null | undefined
+  >(null);
 
   async function search() {
     if (value[0] !== null && value[1] !== null) {

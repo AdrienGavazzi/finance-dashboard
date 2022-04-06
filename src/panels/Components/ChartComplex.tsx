@@ -16,7 +16,11 @@ export default function ChartComplex({
   deposit?: any;
   colors?: any;
 }) {
-  if (!data || !labels) {
+  if (data === null || labels === null) {
+    return null;
+  }
+
+  if (data === undefined || labels === undefined) {
     return <Loading />;
   }
 

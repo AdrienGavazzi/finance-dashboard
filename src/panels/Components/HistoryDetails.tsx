@@ -15,18 +15,22 @@ export default function HistoryDetails({
   labels: any;
   deposit?: any;
 }) {
+  if (data === null || labels === null) {
+    return null;
+  }
+
+  if (data === undefined || labels === undefined) {
+    return <Loading />;
+  }
+
   var infos: any = null;
 
   if (data && labels) {
     infos = calculDetails(data, labels, deposit);
   }
 
-  if (!data || !labels) {
-    return <Loading />;
-  }
-
   const TrendingIcon = () => {
-    if (infos.endValue > infos.startValue) {
+    if (infos.variation > 0) {
       return (
         <TrendingUpIcon
           className="icon"
