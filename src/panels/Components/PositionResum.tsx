@@ -2,7 +2,7 @@ import React from "react";
 
 import Loading from "../../layout/Loading";
 
-export default function TotalPosition({
+export default function PositionResum({
   numberDay,
   firstValue,
   lastValue,
