@@ -1,3 +1,24 @@
+.button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  margin: auto 10px auto 30px;
+  height: 100%;
+  width: 100px;
+  backdrop-filter: blur(1.5px);
+  border-radius: 10px;
+  background-color: #ffffff34;
+  color: #ffffff;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #ffffff0e;
+}
+
 .MuiListItem-root.item {
   margin: 5px auto;
   width: 92%;
@@ -108,10 +129,9 @@
 
 .panel-charteline {
   position: absolute;
-  width: 96%;
-  min-height: 30vh;
-  margin-top: 2vh;
-  padding: -2%;
+  width: 100%;
+  height: 83%;
+  margin-top: 2%;
   border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0px 10px 20px #0000002a;
@@ -306,23 +326,33 @@
   border-radius: 20px;
 }
 
-.button {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-  margin: auto 10px auto 30px;
-  height: 100%;
-  width: 100px;
-  backdrop-filter: blur(1.5px);
-  border-radius: 10px;
-  background-color: #ffffff34;
-  color: #ffffff;
+.panel-details {
+  padding-top: 10vh;
+  height: 90vh;
+  width: 100%;
 }
 
-.button:hover {
-  cursor: pointer;
-  background-color: #ffffff0e;
+.panel-flex {
+  display: flex;
+  flex-direction: row;
+  margin: 0px 2%;
 }
+
+.panel-details-position {
+  flex: 1;
+  display: block;
+  position: relative;
+  justify-content: center;
+  width: 30%;
+  height: 45vh;
+}
+
+.panel-details-allocation {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  width: 96%;
+  margin: auto 2%;
+}
+
+

@@ -42,7 +42,9 @@
 }
 
 .panel-balance {
+  position: relative;
   flex: 2;
+  height: 100%;
 }
 
 .panel-etf {

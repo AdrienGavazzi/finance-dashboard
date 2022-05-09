@@ -40,10 +40,13 @@ export default function PositionsPanel2({
     var dateStart = new Date();
     var dateEnd = new Date();
     dateStart.setDate(dateStart.getDate() - numberDay);
+    console.log(dateStart.toLocaleDateString());
+    console.log(dateEnd.toLocaleDateString());
     getFundHistoryDates(
       dateStart.toLocaleDateString(),
       dateEnd.toLocaleDateString()
     ).then((data: any) => {
+      console.log(data);
       setEtfSeries(data.etf.etfSeries);
       setEtfLabels(data.etf.etfLabels);
       setActionsSeries(data.action.actionSeries);

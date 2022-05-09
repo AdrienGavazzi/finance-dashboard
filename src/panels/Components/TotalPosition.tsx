@@ -20,11 +20,6 @@ export default function TotalPosition({
     return <Loading />;
   }
 
-  if (data.length < 9 && categories.length < 9) {
-    data.push(total.total);
-    categories.push(new Date().toLocaleDateString());
-  }
-
   const series = [
     {
       name: "value",
