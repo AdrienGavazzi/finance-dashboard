@@ -7,8 +7,6 @@ import DetailFund from "./panels/Components/DetailFund";
 import PerformanceLine from "./panels/Components/PerformanceLine";
 import PositionsPanel2 from "./panels/PositionsPanel2";
 import {
-  getFundAllocation,
-  getPerformance,
   getPositions,
   getActions,
   getRealEstate,

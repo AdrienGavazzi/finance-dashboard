@@ -355,4 +355,10 @@
   margin: auto 2%;
 }
 
+.panel-details-performance{
+  position: relative;
+  flex: 2;
+  height: 100%;
+}
+
 

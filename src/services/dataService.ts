@@ -5,7 +5,7 @@ import { Allocation } from "../data/models";
 import {
   getActionsLive,
   getCryptoLive,
-  getEtfHistory,
+  getEtfHistoryAPI,
   getEtfLives,
   getInfo,
   getRealEstateLive,
@@ -75,33 +75,6 @@ export async function getFundAllocation(): Promise<any> {
   return { series, labels };
 }
 
-export async function getPerformance(): Promise<any> {
-  var perf: String[] = [];
-  var categories: String[] = [];
-  var deposits: String[] = [];
-
-  var responseHistory: any = await getEtfHistory();
-
-  var cpt = parseInt((responseHistory.data.data.length / 12).toString());
-
-  responseHistory.data.data.forEach((element: any) => {
-    perf.push(parseInt(element.assets).toString());
-    deposits.push(parseInt(element.deposit).toString());
-    categories.push(element.date);
-    //if (cpt === parseInt((responseHistory.data.data.length / 12).toString())) {
-    //  categories.push(element.date);
-    //  cpt = 0;
-    //} else {
-    //  categories.push("");
-    //  cpt++;
-    //}
-  });
-
-  setEtfHistoryStorage(responseHistory.data.data);
-
-  return { perf, categories, deposits };
-}
-
 export async function getPositions(): Promise<any> {
   var responsePosition: any = await getEtfLives();
   var responseInfo: any = await getInfo();
@@ -111,9 +84,7 @@ export async function getPositions(): Promise<any> {
     finance: "ETF",
     bourse: Number(responsePosition.data.total).toFixed(1),
     money: responsePosition.data.money.number,
-    total: Number(
-      responsePosition.data.total + responsePosition.data.money.number
-    ).toFixed(1),
+    total: Number(responsePosition.data.total).toFixed(1),
     totalinvest: responseInfo.data.data.invest.etf,
     variation: Number(
       ((responsePosition.data.total +
@@ -268,4 +239,52 @@ export async function getFundHistoryDates(
     action: { actionSeries, actionDeposit, actionLabels },
     crypto: { cryptoSeries, cryptoDeposit, cryptoLabels },
   };
+}
+
+export async function getEtfHistory(date1: any, date2: any) {
+  var responseHistory: any = await getEtfHistoryAPI({ date1, date2 });
+
+  var etfSeries: any = [];
+  var etfDeposit: any = [];
+  var etfLabels: any = [];
+
+  responseHistory.data.data.forEach((element: any, index: any) => {
+    etfSeries.push(element.assets);
+    etfDeposit.push(element.deposit);
+    etfLabels.push(element.date);
+  });
+
+  return { etfSeries, etfDeposit, etfLabels };
+}
+
+export async function getActionHistory(date1: any, date2: any) {
+  var responseHistory: any = await getEtfHistoryAPI({ date1, date2 });
+
+  var actionSeries: any = [];
+  var actionDeposit: any = [];
+  var actionLabels: any = [];
+
+  responseHistory.data.data.forEach((element: any, index: any) => {
+    actionSeries.push(element.assets);
+    actionDeposit.push(element.deposit);
+    actionLabels.push(element.date);
+  });
+
+  return { actionSeries, actionDeposit, actionLabels };
+}
+
+export async function getCryptoHistory(date1: any, date2: any) {
+  var responseHistory: any = await getEtfHistoryAPI({ date1, date2 });
+
+  var cryptoSeries: any = [];
+  var cryptoDeposit: any = [];
+  var cryptoLabels: any = [];
+
+  responseHistory.data.data.forEach((element: any, index: any) => {
+    cryptoSeries.push(element.assets);
+    cryptoDeposit.push(element.deposit);
+    cryptoLabels.push(element.date);
+  });
+
+  return { cryptoSeries, cryptoDeposit, cryptoLabels };
 }

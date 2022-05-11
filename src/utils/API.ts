@@ -25,9 +25,21 @@ export function getEtfDistribution(): Promise<any> {
   });
 }
 
-export function getEtfHistory(): Promise<any> {
+export function getEtfHistoryAPI(send: any): Promise<any> {
   return axios.get(url + "/finance/etf/history", {
-    params: { token: getToken() },
+    params: { ...send, token: getToken() },
+  });
+}
+
+export function getActionHistoryAPI(send: any): Promise<any> {
+  return axios.get(url + "/finance/action/history", {
+    params: { ...send, token: getToken() },
+  });
+}
+
+export function getCryptofHistoryAPI(send: any): Promise<any> {
+  return axios.get(url + "/finance/crypto/history", {
+    params: { ...send, token: getToken() },
   });
 }
 

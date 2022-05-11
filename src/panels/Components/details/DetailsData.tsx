@@ -11,14 +11,22 @@ export default function DetailsData({
   position,
   total,
   series,
+  deposit,
   labels,
+  shortSeries,
+  shortLabels,
+  data,
   numberDay,
 }: {
   name: any;
   position: any;
   total: any;
   series: any;
+  deposit: any;
   labels: any;
+  shortSeries: any;
+  shortLabels: any;
+  data: any;
   numberDay: any;
 }) {
   if (!name || !position || !total || !series || !labels || !numberDay) {
@@ -39,7 +47,11 @@ export default function DetailsData({
                 "linear-gradient(to right bottom, #0093E9, #80C5D0e0)",
             }}
           >
-            <TotalPosition total={total} data={series} categories={labels} />
+            <TotalPosition
+              total={total}
+              data={shortSeries}
+              categories={shortLabels}
+            />
           </div>
           <div className="panel-info-resum">
             <PositionResum
@@ -50,12 +62,16 @@ export default function DetailsData({
           </div>
         </div>
         <div className="panel-details-allocation">
-          <AllocationDonut data={[]} />
+          <AllocationDonut data={data} />
         </div>
       </div>
-      <div className="panel-flex">
-        <div className="panel-balance">
-          <PerformanceLine data={[]} categories={[]} deposits={[]} />
+      <div className="panel-flex" style={{ height: "20vh" }}>
+        <div className="panel-details-performance">
+          <PerformanceLine
+            data={series}
+            categories={labels}
+            deposits={deposit}
+          />
         </div>
       </div>
     </div>
