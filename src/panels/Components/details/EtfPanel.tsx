@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import DetailsData from "./DetailsData";
 
-import {
-  getActionHistory,
-  getCryptoHistory,
-  getEtfHistory,
-  getPositions,
-} from "../../../services/dataService";
+import { getEtfHistory, getPositions } from "../../../services/dataService";
 
 export default function EtfPanel() {
   const [position, setPosition] = useState<string[]>([]);
@@ -42,7 +37,7 @@ export default function EtfPanel() {
       (data: any) => {
         console.log(data);
         setSeries(data.etfSeries);
-        setDeposit(data.etfDepoit);
+        setDeposit(data.etfDeposit);
         setLabels(data.etfLabels);
         setShortSeries(data.etfSeries.slice(-10, numberDay));
         setShortLabels(data.etfLabels.slice(-10, numberDay));
@@ -63,6 +58,7 @@ export default function EtfPanel() {
         labels={labels}
         data={data}
         numberDay={numberDay}
+        colors={["#0093E9", "#80C5D0e0"]}
       />
     </div>
   );

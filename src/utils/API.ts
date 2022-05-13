@@ -37,7 +37,7 @@ export function getActionHistoryAPI(send: any): Promise<any> {
   });
 }
 
-export function getCryptofHistoryAPI(send: any): Promise<any> {
+export function getCryptoHistoryAPI(send: any): Promise<any> {
   return axios.get(url + "/finance/crypto/history", {
     params: { ...send, token: getToken() },
   });

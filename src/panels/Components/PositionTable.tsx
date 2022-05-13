@@ -13,10 +13,142 @@ import Loading from "../../layout/Loading";
 const fontSize = "13px";
 const padding = "10px 5px";
 
-export default function PositionTable({ position }: { position: any }) {
+export default function PositionTable({
+  position,
+  isComplex,
+}: {
+  position: any;
+  isComplex?: boolean;
+}) {
   if (!position) {
     return null;
   }
+
+  const extended1_1 = (element: any) => {
+    if (isComplex && element) {
+      if (element.oneWeek !== undefined) {
+        return (
+          <TableCell
+            align="left"
+            style={{ fontSize: fontSize, padding: padding }}
+          >
+            One Week
+          </TableCell>
+        );
+      } else {
+        return (
+          <TableCell
+            align="left"
+            style={{ fontSize: fontSize, padding: padding }}
+          >
+            One Month
+          </TableCell>
+        );
+      }
+    }
+    return null;
+  };
+
+  const extended2_1 = (element: any) => {
+    if (isComplex && element) {
+      return (
+        <TableCell
+          align="left"
+          style={{ fontSize: fontSize, padding: padding }}
+        >
+          Three Month
+        </TableCell>
+      );
+    }
+    return null;
+  };
+
+  const extended3_1 = (element: any) => {
+    if (isComplex && element) {
+      return (
+        <TableCell
+          align="left"
+          style={{ fontSize: fontSize, padding: padding }}
+        >
+          One Year
+        </TableCell>
+      );
+    }
+    return null;
+  };
+
+  const extended1_2 = (element: any) => {
+    if (isComplex && element) {
+      if (element.oneWeek !== undefined) {
+        return (
+          <TableCell
+            align="left"
+            style={{
+              fontSize: fontSize,
+              padding: padding,
+              color: element.oneWeek < 0 ? "red" : "#5edd23",
+              fontWeight: "bold",
+            }}
+          >
+            {element.oneWeek}
+          </TableCell>
+        );
+      } else {
+        return (
+          <TableCell
+            align="left"
+            style={{
+              fontSize: fontSize,
+              padding: padding,
+              color: element.oneMonth < 0 ? "red" : "#5edd23",
+              fontWeight: "bold",
+            }}
+          >
+            {element.oneMonth}
+          </TableCell>
+        );
+      }
+    }
+    return null;
+  };
+
+  const extended2_2 = (element: any) => {
+    if (isComplex && element) {
+      return (
+        <TableCell
+          align="left"
+          style={{
+            fontSize: fontSize,
+            padding: padding,
+            color: element.threeMonth < 0 ? "red" : "#5edd23",
+            fontWeight: "bold",
+          }}
+        >
+          {element.threeMonth}
+        </TableCell>
+      );
+    }
+    return null;
+  };
+
+  const extended3_2 = (element: any) => {
+    if (isComplex && element) {
+      return (
+        <TableCell
+          align="left"
+          style={{
+            fontSize: fontSize,
+            padding: padding,
+            color: element.oneYear < 0 ? "red" : "#5edd23",
+            fontWeight: "bold",
+          }}
+        >
+          {element.oneYear}
+        </TableCell>
+      );
+    }
+    return null;
+  };
 
   // ADD component={Paper} for design
   return (
@@ -61,6 +193,9 @@ export default function PositionTable({ position }: { position: any }) {
               >
                 Value
               </TableCell>
+              {extended1_1(position[0])}
+              {extended2_1(position[0])}
+              {extended3_1(position[0])}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -78,7 +213,12 @@ export default function PositionTable({ position }: { position: any }) {
                 </TableCell>
                 <TableCell
                   align="left"
-                  style={{ fontSize: fontSize, padding: padding }}
+                  style={{
+                    fontSize: fontSize,
+                    padding: padding,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => window.open(row.link, "_blank")}
                 >
                   {row.name}
                 </TableCell>
@@ -111,6 +251,9 @@ export default function PositionTable({ position }: { position: any }) {
                 >
                   {Number(row.value).toFixed(2)}
                 </TableCell>
+                {extended1_2(row)}
+                {extended2_2(row)}
+                {extended3_2(row)}
               </TableRow>
             ))}
           </TableBody>

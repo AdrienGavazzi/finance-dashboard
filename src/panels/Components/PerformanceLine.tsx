@@ -47,7 +47,6 @@ export default function PerformanceLine({
     },
     yaxis: {
       show: false,
-      min: 2100,
     },
     colors: ["#16ACEA", "#d51a399a"],
     stroke: {
@@ -66,7 +65,7 @@ export default function PerformanceLine({
     <div style={{ position: "relative", height: "100%", width: "100%" }}>
       <div className="panel-charteline">
         <div style={{ margin: "2% 0.5%", height: "100%" }}>
-          <Chart options={options} series={series} width="100%" height="94%" />
+          <Chart options={options} series={series} width="100%" height="100%" />
         </div>
       </div>
       <div className="panel-chartelineOverlay">

@@ -17,6 +17,7 @@ export default function DetailsData({
   shortLabels,
   data,
   numberDay,
+  colors,
 }: {
   name: any;
   position: any;
@@ -28,23 +29,35 @@ export default function DetailsData({
   shortLabels: any;
   data: any;
   numberDay: any;
+  colors: any;
 }) {
   if (!name || !position || !total || !series || !labels || !numberDay) {
     return <Loading />;
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        width: "100%",
+      }}
+    >
       <div className="panel-flex">
         <div className="panel-details-position">
           <div className="panel-info-data">
-            <PositionTable position={position} />
+            <PositionTable position={position} isComplex={true} />
           </div>
           <div
             className="panel-info-total"
             style={{
               backgroundImage:
-                "linear-gradient(to right bottom, #0093E9, #80C5D0e0)",
+                "linear-gradient(to right bottom, " +
+                colors[0] +
+                ", " +
+                colors[1] +
+                ")",
             }}
           >
             <TotalPosition
@@ -55,8 +68,8 @@ export default function DetailsData({
           </div>
           <div className="panel-info-resum">
             <PositionResum
-              numberDay={numberDay}
-              firstValue={series[0]}
+              numberDay={10}
+              firstValue={shortSeries[0]}
               lastValue={total}
             />
           </div>
@@ -65,7 +78,7 @@ export default function DetailsData({
           <AllocationDonut data={data} />
         </div>
       </div>
-      <div className="panel-flex" style={{ height: "20vh" }}>
+      <div className="panel-flex" style={{ height: "100%" }}>
         <div className="panel-details-performance">
           <PerformanceLine
             data={series}

@@ -327,8 +327,8 @@
 }
 
 .panel-details {
+  height: 100vh;
   padding-top: 10vh;
-  height: 90vh;
   width: 100%;
 }
 
@@ -339,7 +339,7 @@
 }
 
 .panel-details-position {
-  flex: 1;
+  flex: 1.5;
   display: block;
   position: relative;
   justify-content: center;

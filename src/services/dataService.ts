@@ -11,6 +11,8 @@ import {
   getRealEstateLive,
   getFundHistory,
   getHistoryDates,
+  getActionHistoryAPI,
+  getCryptoHistoryAPI,
 } from "../utils/API";
 import { setEtfHistoryStorage, setEtfStorage } from "../utils/utils";
 
@@ -258,7 +260,7 @@ export async function getEtfHistory(date1: any, date2: any) {
 }
 
 export async function getActionHistory(date1: any, date2: any) {
-  var responseHistory: any = await getEtfHistoryAPI({ date1, date2 });
+  var responseHistory: any = await getActionHistoryAPI({ date1, date2 });
 
   var actionSeries: any = [];
   var actionDeposit: any = [];
@@ -274,7 +276,7 @@ export async function getActionHistory(date1: any, date2: any) {
 }
 
 export async function getCryptoHistory(date1: any, date2: any) {
-  var responseHistory: any = await getEtfHistoryAPI({ date1, date2 });
+  var responseHistory: any = await getCryptoHistoryAPI({ date1, date2 });
 
   var cryptoSeries: any = [];
   var cryptoDeposit: any = [];
