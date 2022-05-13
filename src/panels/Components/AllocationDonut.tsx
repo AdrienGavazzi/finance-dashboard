@@ -25,7 +25,7 @@ export default function AllocationDonut({ data }: { data: any }) {
   };
 
   return (
-    <div style={{ width: "100%", height: "40vh" }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <div className="panel-donut">
         <Chart
           options={options}

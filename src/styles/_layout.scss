@@ -12,12 +12,13 @@
 }
 
 .panel-second {
-  margin-top: 3vh;
+  padding-top: 3vh;
   flex: 1;
   padding: 0px 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 100%;
 }
 
 .panel-positions {
@@ -38,7 +39,8 @@
 
 .panel-allocation-fund {
   position: absolute;
-  width: 60%;
+  width: 52%;
+  height: 90%;
 }
 
 .panel-balance {
