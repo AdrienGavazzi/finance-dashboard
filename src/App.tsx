@@ -25,9 +25,9 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
 import ProtectedRoutes from "./ProtectedRoutes";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import Dashboard from "./Dashboard";
 import Home from "./Home";
 import History from "./History";

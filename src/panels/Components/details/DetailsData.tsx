@@ -45,7 +45,7 @@ export default function DetailsData({
       }}
     >
       <div className="panel-flex">
-        <div className="panel-details-position">
+        <div className="panel-details-position" style={{marginBottom: "20px"}}>
           <div className="panel-info-data">
             <PositionTable position={position} isComplex={true} />
           </div>

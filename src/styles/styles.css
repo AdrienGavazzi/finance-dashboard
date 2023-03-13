@@ -39,7 +39,7 @@
   position: relative;
   justify-content: center;
   width: 30%;
-  height: 45vh;
+  height: 43vh;
 }
 
 .panel-info-total {
@@ -84,14 +84,39 @@
 
 .panel-info-data {
   position: absolute;
-  top: 3vh;
+  top: 2.5vh;
   width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
   min-height: 22vh;
   padding: 5px;
   padding-top: 14.5vh;
   border-radius: 10px;
   backdrop-filter: blur(2px);
   box-shadow: 2px 5px 29px #00000025;
+}
+
+
+.panel-info-data::-webkit-scrollbar {
+  width: 6px;
+  /* width of the entire scrollbar */
+}
+
+.panel-info-data::-webkit-scrollbar-track {
+  background: #F1F1F1;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  /* color of the tracking area */
+}
+
+.panel-info-data::-webkit-scrollbar-thumb {
+  background-color: #cececee6;
+  border-radius: 8px;
+  /* color of the scroll thumb */
+  /* border-radius: 20px; */
+  /* roundness of the scroll thumb */
+  border: 3px solid #cececee6;
+  /* creates padding around scroll thumb */
 }
 
 .price {
