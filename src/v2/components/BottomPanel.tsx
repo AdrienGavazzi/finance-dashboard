@@ -93,6 +93,8 @@ export default function BottomPanel({positions}: any) {
         setLineSeries(series_data)
         setLineCategories(labels)
 
+        window.dispatchEvent(new Event('resize'))
+
         // Calcul du budget total
         const totalBudget = positions.reduce((total: any, objet: any) => {
             const budgetElement = objet.number * objet.predict.price;
@@ -133,7 +135,9 @@ export default function BottomPanel({positions}: any) {
 
         console.log(nouvelObjet);
 
-        // setDonutData(nouvelObjet)
+        setDonutData(nouvelObjet)
+
+        window.dispatchEvent(new Event('resize'))
 
     }, [positions])
 
