@@ -1,0 +1,237 @@
+.overview {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.overview-table {
+    width: 100%;
+    flex: 3;
+}
+
+.overview-graph {
+    width: 100%;
+    flex: 2;
+}
+
+.positions-div {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.positions-div > div {
+    flex: 1;
+    width: 100%;
+    margin: 10px 10px auto 10px;
+}
+
+.position-div-head {
+    position: relative;
+    border-radius: 7px;
+    z-index: 2;
+}
+
+.positions-head {
+    padding: 5px 7%;
+    position: relative;
+    height: 20vh;
+}
+
+.positions-head-tag {
+    position: absolute;
+    top: 0px;
+    left: 5%;
+    width: 30% !important;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    color: white;
+    padding: 3px 10px;
+    font-size: large;
+    font-weight: 800;
+    box-shadow: 2px 5px 29px #00000025;
+}
+
+.positions-head h1 {
+    padding-top: 45px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+.positions-head h4 {
+    color: #e1e1e1af;
+    font-size: 15px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+.positions-head h3 {
+    color: #F1F1F1;
+    font-size: 20px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+.positions-head h5 {
+    position: absolute;
+    font-size: 15px;
+    bottom: 10px;
+    right: 7%;
+    padding: 5px 10px;
+    background-color: #f1f1f167;
+    border-radius: 7px;
+    color: #f1f1f1;
+}
+
+.positions-head-variation {
+    position: absolute;
+    bottom: 20px;
+    left: 7%;
+}
+
+.positions-head-chart {
+    position: absolute;
+    top: 7%;
+    right: 7%;
+}
+
+.positions-table {
+    position: relative;
+    width: 97%;
+    margin-top: -5vh !important;
+    padding-top: 5vh;
+    color: #1F1F1F;
+    margin: auto;
+    border-radius: 7px;
+    backdrop-filter: blur(2px);
+    box-shadow: 2px 5px 29px #00000025;
+    z-index: 1;
+}
+
+.bottom-div {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 95%;
+}
+
+.resume-div {
+    flex: 3;
+    background: linear-gradient(to right bottom, #E33D76, #e7769ede);
+    height: 100%;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.resume-title {
+    position: absolute;
+    top: 0px;
+    left: 5%;
+    width: 45% !important;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    color: white;
+    padding: 3px 10px;
+    font-size: 25px;
+    font-weight: 800;
+    box-shadow: 2px 5px 29px #00000025;
+    background-color: #f1f1f19e;
+}
+
+.resume-donut {
+    margin-top: 10%;
+    position: absolute;
+    z-index: 10;
+}
+
+.history-chart {
+    flex: 6;
+    box-shadow: 2px 5px 29px #00000025;
+    padding: 10px 10px 10px 0px;
+    height: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.button-div {
+    flex: 0.5;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    background: linear-gradient(to right bottom, #E33D76, #e7769ede);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-div > div {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    background-color: white;
+    display: flex;
+    cursor: pointer;
+}
+
+.fund-div {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0px;
+    right: 0px;
+    width: 35%;
+    height: 100%;
+}
+
+.fund-div > div {
+    position: relative;
+    background-color: #f1f1f1be;
+    margin: auto 0px;
+    height: 70%;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.fund-div h1 {
+    font-size: 30px;
+    padding: 0px;
+    margin:  10% auto 0% 10%;
+}
+
+.fund-div h3 {
+    font-size: 15px;
+    color: #8c8c8c;
+    padding: 0px;
+    margin:  10% auto 0% 10%;
+}
+
+.fund-div h5 {
+    font-size: 17px;
+}
+
+.fund-div > div > div {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.fund-div > div > div > div {
+    width: 100%;
+    text-align: center;
+    padding: 10px 10px 5px 10px;
+    color: #F1F1F1;
+}
+
