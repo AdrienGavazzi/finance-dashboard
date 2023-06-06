@@ -17,6 +17,7 @@ const renderTooltip = (e: any) => {
 };
 
 export default function AllocationPanel({ data }: { data: any }) {
+
   return (
     <>
       {!data && <Loading />}

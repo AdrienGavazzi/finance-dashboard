@@ -40,6 +40,8 @@ import EtfPanel from "./panels/Components/details/EtfPanel";
 import ActionPanel from "./panels/Components/details/ActionPanel";
 import CryptoPanel from "./panels/Components/details/CryptoPanel";
 
+import Overview from "./v2/pages/Overview";
+
 const useStyles: any = makeStyles({
   drawerPaper: { width: "inherit" },
   link: { textDecoration: "none", color: "#1F1F1F" },
@@ -119,6 +121,25 @@ function App() {
                   />
                 </ListItemIcon>
                 <ListItemText primary={"Home"} />
+              </ListItem>
+            </Link>
+            <Link to="/overview" className={classes.link}>
+              <ListItem
+                button
+                selected={selectedIndex === "/overview"}
+                onClick={(event) => setSelectedIndex("/overview")}
+                className={
+                  selectedIndex === "/overview" ? "item-selected" : "item"
+                }
+              >
+                <ListItemIcon>
+                  <DashboardIcon
+                    sx={{
+                      color: selectedIndex === "/overview" ? "white" : "black",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary={"Overview"} />
               </ListItem>
             </Link>
             <Link to="/dashboard" className={classes.link}>
@@ -207,6 +228,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route element={<ProtectedRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/overview" element={<Overview />} />
             <Route path="/history" element={<History />} />
             {detailslist.map((element: any, index: number) => {
               return (

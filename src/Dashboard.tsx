@@ -31,6 +31,8 @@ export default function Dashboard() {
   const [allocationFund, setAllocationFund] = React.useState<any>();
 
   React.useEffect(() => {
+    
+    document.title = 'Dashboard';
     getInfo();
 
     const interval = setInterval(() => {
@@ -61,6 +63,7 @@ export default function Dashboard() {
         value: 0,
         total: dataPosition.total.total,
       });
+      console.log({ labels, series: getValuePourcent(list) })
       setAllocationFund({ labels, series: getValuePourcent(list) });
     });
 
