@@ -6,6 +6,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Tooltip from '@mui/material/Tooltip';
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -22,15 +23,39 @@ export default function PositionRow({positions}: any) {
         var variation = ((prixPredict - prixDerniereSeance) / prixDerniereSeance) * 100;
         
         if (variation < -9 ) {
-          return <KeyboardDoubleArrowDownIcon sx={{ fontSize: 17 }} style={{ color: "red" }} />;
+            return (
+                <div>
+                    <Tooltip title={"Predicted : " + prixPredict} placement="left-start">
+                        <KeyboardDoubleArrowDownIcon sx={{ fontSize: 17 }} style={{ color: "red" }} />
+                    </Tooltip>
+                </div>
+              );
         } else if (variation < 0) {
-            return <KeyboardArrowDownIcon sx={{ fontSize: 17 }} style={{ color: "red" }} />;
+            return (
+                <div>
+                    <Tooltip title={"Predicted : " + prixPredict} placement="left-start">
+                        <KeyboardArrowDownIcon sx={{ fontSize: 17 }} style={{ color: "red" }} />
+                    </Tooltip>
+                </div>
+            );
         } else if (variation > 9) {
-            return <KeyboardDoubleArrowUpIcon sx={{ fontSize: 17 }} style={{ color: "#5edd23" }} />;
+            return (
+            <div>
+                <Tooltip title={"Predicted : " + prixPredict} placement="left-start">
+                    <KeyboardDoubleArrowUpIcon sx={{ fontSize: 17 }} style={{ color: "#5edd23" }} />
+                </Tooltip>
+            </div>
+            );
         } else {
-            return <KeyboardArrowUpIcon sx={{ fontSize: 17 }} style={{ color: "#5edd23" }} />;
+            return (
+                <div>
+                    <Tooltip title={"Predicted : " + prixPredict} placement="left-start">
+                        <KeyboardArrowUpIcon sx={{ fontSize: 17 }} style={{ color: "#5edd23" }} />
+                    </Tooltip>
+                </div>
+            );
         }
-      }
+    }
 
     return (
         <div>

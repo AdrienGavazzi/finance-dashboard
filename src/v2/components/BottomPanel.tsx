@@ -10,6 +10,7 @@ import {
 } from "@progress/kendo-react-charts";
 
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 import Line from "./charts/Line"
 
@@ -178,6 +179,13 @@ export default function BottomPanel({positions}: any) {
                     <EventRepeatIcon
                         sx={{ fontSize: 25 }}
                         style={{ color: "black", margin: "auto" }}
+                        />
+                </div>
+                <div>
+                    <RefreshIcon
+                        sx={{ fontSize: 25 }}
+                        style={{ color: "black", margin: "auto" }}
+                        onClick={() => window.dispatchEvent(new Event('resize'))}
                         />
                 </div>
             </div>
