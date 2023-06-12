@@ -11,10 +11,12 @@ import {
 
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 
-import PerformanceLine from "../../panels/Components/PerformanceLine";
+import Line from "./charts/Line"
 
 import { getFundHistory } from "../../utils/API";
 import Loading from "../../layout/Loading";
+import PerformanceLine from "../../panels/Components/PerformanceLine";
+import Donut from "./charts/Donut";
 
 const labelContent = (e: any) => `${e.value}%`;
 
@@ -24,97 +26,45 @@ const renderTooltip = (e: any) => {
 
 
 export default function BottomPanel({positions}: any) {
-
-    const series = [
-        {
-          name: "value",
-          data: [],
-        },
-        {
-          name: "deposit",
-          data: [],
-        },
-    ];
-
-    const options: any = {
-        chart: {
-          type: "line",
-          zoom: {
-            enabled: false,
-          },
-          toolbar: {
-            show: false,
-          },
-          sparkline: {
-            enabled: true,
-          },
-        },
-        xaxis: {
-          categories: [],
-          labels: {
-            show: false,
-          },
-        },
-        yaxis: {
-          show: false,
-        },
-        colors: ["#16ACEA", "#d51a399a"],
-        stroke: {
-          width: [2.5, 2.5],
-          curve: "smooth",
-        },
-        legend: {
-          show: false,
-        },
-        grid: {
-          show: false,
-        },
-    };
     
-    const [lineSeries, setLineSeries] = React.useState<any>(series);
-    const [lineCategories, setLineCategories] = React.useState<any>(options);
+    const [lineSeries, setLineSeries] = React.useState<any>([]);
+    const [lineSeriesDeposit, setLineSeriesDeposit] = React.useState<any>([]);
+    const [lineCategories, setLineCategories] = React.useState<any>([]);
     const [total, setTotal] = React.useState<number>();
     const [deposit, setDeposit] = React.useState<number>();
-    const [donutData, setDonutData] = React.useState<any>({labels: [], series: []});
+    const [donutSeries, setDonutSeries] = React.useState<any>([]);
+    const [donutCategories, setDonutCategories] = React.useState<any>([]);
 
     useEffect(() => {
 
-        var series_data: any = series;
-        var labels: any = options;
-
-        getFundHistory().then((data: any) => {
-            data.data.data.forEach((element: any) => {
-                series_data[0].data.push(parseInt(element.assets).toString())
-                series_data[1].data.push(parseInt(element.deposit).toString())
-                labels.xaxis.categories.push(element.date)
-            })
-        });
-
-        setLineSeries(series_data)
-        setLineCategories(labels)
-
-        window.dispatchEvent(new Event('resize'))
+        if (lineSeries.length === 0) {
+            getHistory()
+        }
 
         // Calcul du budget total
         const totalBudget = positions.reduce((total: any, objet: any) => {
-            const budgetElement = objet.number * objet.predict.price;
+            if (objet.data.price) {
+                var budgetElement = objet.number * objet.data.price;
+            } else {
+                var budgetElement = 0;
+            }
             return total + budgetElement;
         }, 0);
         
         const totalDeposit = positions.reduce((total: any, objet: any) => {
-            const budgetElement = objet.number * objet.PRU;
+            if (objet.data.price) {
+                var budgetElement = objet.number * objet.PRU;
+            } else {
+                var budgetElement = 0;
+            }
             return total + budgetElement;
         }, 0);
         
         setTotal(totalBudget)
         setDeposit(totalDeposit)
         
-
-        // Création de l'objet avec les arrays "labels" et "series"
-        const nouvelObjet: any = {
-            labels: [],
-            series: []
-        };
+        var labels: any = []
+        var series: any = []
 
         // Obtention des tags uniques
         const tagsUniques = positions
@@ -129,17 +79,33 @@ export default function BottomPanel({positions}: any) {
             
             const pourcentage = (sommeParTag / totalBudget) * 100;
             
-            nouvelObjet.labels.push(tag);
-            nouvelObjet.series.push(pourcentage);
+            labels.push(tag.toUpperCase() + " " + sommeParTag.toFixed(0) + "€");
+            series.push(pourcentage);
         });
 
-        console.log(nouvelObjet);
-
-        setDonutData(nouvelObjet)
-
-        window.dispatchEvent(new Event('resize'))
+        setDonutSeries(series)
+        setDonutCategories(labels)
 
     }, [positions])
+
+
+    async function getHistory() {
+        var series_data: any = [];
+        var series_data_deposit: any = [];
+        var labels: any = [];
+
+        getFundHistory().then((data: any) => {
+            data.data.data.forEach((element: any) => {
+                series_data.push(parseInt(element.assets).toString())
+                series_data_deposit.push(parseInt(element.deposit).toString())
+                labels.push(element.date)
+            })
+        });
+
+        setLineSeries(series_data)
+        setLineSeriesDeposit(series_data_deposit)
+        setLineCategories(labels)
+    }
 
 
     if (!total) {
@@ -166,19 +132,7 @@ export default function BottomPanel({positions}: any) {
             <div className="resume-div">
                 <div className="resume-title">Resume</div>
                 <div className="resume-donut">
-                    {/* <Chart>
-                        <ChartSeries>
-                        <ChartSeriesItem type="donut" data={donutData}>
-                            <ChartSeriesLabels
-                            content={labelContent}
-                            background="none"
-                            color="#fff"
-                            />
-                        </ChartSeriesItem>
-                        </ChartSeries>
-                        <ChartLegend position={"bottom"} visible={true} />
-                        <ChartTooltip render={renderTooltip} />
-                    </Chart> */}
+                    <Donut data={donutSeries} categories={donutCategories}/>
                 </div>
                 <div className="fund-div">
                     <div>
@@ -214,7 +168,10 @@ export default function BottomPanel({positions}: any) {
                 </div>
             </div>
             <div className="history-chart">
-                <Chart2 options={lineCategories} series={lineSeries} width="100%" height="100%" />
+                <div className="history-title">
+                    <h1>History</h1>
+                </div>
+                <Line data={lineSeries} deposits={lineSeriesDeposit} categories={lineCategories} />
             </div>
             <div className="button-div">
                 <div>

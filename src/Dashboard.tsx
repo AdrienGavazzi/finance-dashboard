@@ -63,7 +63,6 @@ export default function Dashboard() {
         value: 0,
         total: dataPosition.total.total,
       });
-      console.log({ labels, series: getValuePourcent(list) })
       setAllocationFund({ labels, series: getValuePourcent(list) });
     });
 

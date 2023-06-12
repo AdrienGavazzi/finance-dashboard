@@ -96,7 +96,7 @@
 .positions-head-chart {
     position: absolute;
     top: 7%;
-    right: 7%;
+    right: 4%;
 }
 
 .positions-table {
@@ -111,6 +111,16 @@
     box-shadow: 2px 5px 29px #00000025;
     z-index: 1;
 }
+
+.position-predict-arrow {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+/* 
+.MuiTableBody-root > tr {
+    background-color: red;
+} */
 
 .bottom-div {
     display: flex;
@@ -148,17 +158,36 @@
 
 .resume-donut {
     margin-top: 10%;
+    margin-right: 35%;
+}
+
+.history-title {
     position: absolute;
-    z-index: 10;
+    top: 0px;
+    left: 5%;
+    width: 20% !important;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    color: white;
+    padding: 10px 10px;
+    box-shadow: 2px 5px 29px #00000025;
+    background-color: #e33d779c;
+    z-index: 2;
+}
+
+.history-title h1 {
+    padding: 0px;
+    font-size: 24px;
 }
 
 .history-chart {
     flex: 6;
     box-shadow: 2px 5px 29px #00000025;
-    padding: 10px 10px 10px 0px;
+    padding: 10px 5px 10px 5px;
     height: 100%;
     margin: auto;
     overflow: hidden;
+    position: relative;
 }
 
 .button-div {

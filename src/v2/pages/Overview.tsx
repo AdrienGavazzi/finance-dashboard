@@ -21,7 +21,17 @@ export default function Dashboard() {
         ApiService.getPositionsList().then((response) => {
             response.data.data.forEach((position: any) => {
                 ApiService.getPositionsLive(position.symbol).then((data) => {
-                    setPositions(positions => [...positions, data.data.data[0]]);
+                    setPositions(positions => [...positions, data.data.data[0]].sort((a, b) => {
+                        const nameA = a.name.toLowerCase();
+                        const nameB = b.name.toLowerCase();
+                        if (nameA < nameB) {
+                          return -1;
+                        } else if (nameA > nameB) {
+                          return 1;
+                        } else {
+                          return 0;
+                        }
+                      }));
                 })
             })
         })

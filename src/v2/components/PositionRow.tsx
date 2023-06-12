@@ -7,12 +7,30 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 const fontSize = "12px";
 const padding = "10px 10px";
 
 
 export default function PositionRow({positions}: any) {
+
+    function obtenirIconeVariationPredictive(prixDerniereSeance: number, prixPredict: number) {
+        var variation = ((prixPredict - prixDerniereSeance) / prixDerniereSeance) * 100;
+        
+        if (variation < -9 ) {
+          return <KeyboardDoubleArrowDownIcon sx={{ fontSize: 17 }} style={{ color: "red" }} />;
+        } else if (variation < 0) {
+            return <KeyboardArrowDownIcon sx={{ fontSize: 17 }} style={{ color: "red" }} />;
+        } else if (variation > 9) {
+            return <KeyboardDoubleArrowUpIcon sx={{ fontSize: 17 }} style={{ color: "#5edd23" }} />;
+        } else {
+            return <KeyboardArrowUpIcon sx={{ fontSize: 17 }} style={{ color: "#5edd23" }} />;
+        }
+      }
 
     return (
         <div>
@@ -63,10 +81,10 @@ export default function PositionRow({positions}: any) {
                             Value
                         </TableCell>
                         <TableCell
-                            align="left"
+                            align="center"
                             style={{ fontSize: fontSize, padding: padding }}
                         >
-                            Predict
+                            +/- 
                         </TableCell>
                         </TableRow>
                     </TableHead>
@@ -97,13 +115,19 @@ export default function PositionRow({positions}: any) {
                                 <TableCell
                                     align="left"
                                     style={{
+                                        position: "relative",
                                         fontSize: fontSize,
                                         padding: padding,
                                         color: row.data.variation < 0 ? "red" : "#5edd23",
                                         fontWeight: "bold",
                                     }}
                                     >
-                                    {Number(row.data.variation).toFixed(2)}
+                                        {Number(row.data.variation).toFixed(2)}
+                                        <div className="position-predict-arrow">
+                                            {
+                                                obtenirIconeVariationPredictive(row.data.lastPrice, row.predict.price)
+                                            }
+                                        </div>
                                 </TableCell>
                                 <TableCell
                                     align="left"
@@ -115,13 +139,13 @@ export default function PositionRow({positions}: any) {
                                     align="left"
                                     style={{ fontSize: fontSize, padding: padding }}
                                     >
-                                    {Number(row.PRU).toFixed(2)}
+                                    {Number(Number(row.PRU).toFixed(2))}
                                 </TableCell>
                                 <TableCell
                                     align="left"
                                     style={{ fontSize: fontSize, padding: padding }}
                                     >
-                                    {row.number}
+                                    {Number(Number(row.number).toFixed(3))}
                                 </TableCell>
                                 <TableCell
                                     align="left"
@@ -134,10 +158,10 @@ export default function PositionRow({positions}: any) {
                                     style={{ 
                                         fontSize: fontSize, 
                                         padding: padding,
-                                        // color: row.predict.price < row ? "red" : "#5edd23"
+                                        // color: Number((row.data.price * row.number) - (row.PRU * row.number)) < 0 ? "red" : "#5edd23"
                                     }}
                                     >
-                                    {Number(row.predict.price).toFixed(2)}
+                                    {Number((row.data.price * row.number) - (row.PRU * row.number)).toFixed(2)}
                                 </TableCell>
                             </TableRow>
                         ))}
