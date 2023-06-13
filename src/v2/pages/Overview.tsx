@@ -57,7 +57,7 @@ export default function Dashboard() {
                 <PositionTable positions={positions} positionsHist={positionsHist} />
             </div>
             <div className="overview-graph">
-                <BottomPanel positions={positions} />
+                <BottomPanel positions={positions} positionsHist={positionsHist} />
             </div>
         </div>
     )

@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
-import Chart2 from "react-apexcharts";
-import {
-  Chart,
-  ChartLegend,
-  ChartSeries,
-  ChartSeriesItem,
-  ChartSeriesLabels, //ChartTitle,
-  ChartTooltip,
-} from "@progress/kendo-react-charts";
 
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import Modal from '@mui/material/Modal';
+import CloseIcon from '@mui/icons-material/Close';
 
-import Line from "./charts/Line"
+import Line from "./charts/Line";
+import Loading from "../../layout/Loading";
+import Donut from "./charts/Donut";
 
 import { getFundHistory } from "../../utils/API";
-import Loading from "../../layout/Loading";
-import PerformanceLine from "../../panels/Components/PerformanceLine";
-import Donut from "./charts/Donut";
+import ModalContent from "./ModalContent";
 
 const labelContent = (e: any) => `${e.value}%`;
 
@@ -26,7 +19,7 @@ const renderTooltip = (e: any) => {
 };
 
 
-export default function BottomPanel({positions}: any) {
+export default function BottomPanel({positions, positionsHist}: any) {
     
     const [lineSeries, setLineSeries] = React.useState<any>([]);
     const [lineSeriesDeposit, setLineSeriesDeposit] = React.useState<any>([]);
@@ -35,6 +28,10 @@ export default function BottomPanel({positions}: any) {
     const [deposit, setDeposit] = React.useState<number>();
     const [donutSeries, setDonutSeries] = React.useState<any>([]);
     const [donutCategories, setDonutCategories] = React.useState<any>([]);
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
 
@@ -175,7 +172,7 @@ export default function BottomPanel({positions}: any) {
                 <Line data={lineSeries} deposits={lineSeriesDeposit} categories={lineCategories} />
             </div>
             <div className="button-div">
-                <div>
+                <div onClick={handleOpen}>
                     <EventRepeatIcon
                         sx={{ fontSize: 25 }}
                         style={{ color: "black", margin: "auto" }}
@@ -189,6 +186,24 @@ export default function BottomPanel({positions}: any) {
                         />
                 </div>
             </div>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <div className="modal-last-days">
+                    <div className="modal-title">
+                        <h1>Last Days Data</h1>
+                    </div>
+                    <div onClick={handleClose} className="modal-close-icon">
+                        <CloseIcon sx={{ fontSize: 30 }} />
+                    </div>
+                    <div className="modal-last-days-content">
+                        <ModalContent positions={positions} positionsHist={positionsHist} />
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }   
