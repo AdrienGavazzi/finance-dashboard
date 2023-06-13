@@ -85,7 +85,7 @@ export default function PositionHead({positions, positionsHist, tag}: any) {
             }, 0)
 
             data[0].data.push(totalDay)
-            labels.xaxis.categories.push(hist.date)
+            labels.xaxis.categories.push(hist.date.split("T")[0])
         }
 
         setGraphLabels(labels)

@@ -117,6 +117,22 @@
     top: 0px;
     right: 0px;
 }
+
+.position-tooltip-zoom {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.position-tooltip-zoom-content p {
+    font-size: 15px;
+    margin: 0px auto 0px 0px;
+}
+
 /* 
 .MuiTableBody-root > tr {
     background-color: red;

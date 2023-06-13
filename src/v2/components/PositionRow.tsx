@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from '@mui/material/Tooltip';
 
+import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
@@ -19,13 +20,34 @@ const padding = "10px 10px";
 
 export default function PositionRow({positions}: any) {
 
-    function obtenirIconeVariationPredictive(prixDerniereSeance: number, prixPredict: number) {
+    const getTooltip = (pricDerniereSeance: number, prixPredict: number, date: string) => {
+        return (
+            <div>
+                <div>Predicted: {prixPredict}</div>
+                <div>Date: {date}</div>
+                <div>Last Close: {pricDerniereSeance}</div>
+            </div>
+        )
+    }
+
+    const getZoomTooltip = (data: any) => {
+        return (
+            <div className="position-tooltip-zoom-content">
+                <h5>{data.name} ({data.symbol})</h5>
+                <p>One Month: {data.data.oneMonth}</p>
+                <p>Three Months: {data.data.threeMonth}</p>
+                <p>One Year: {data.data.oneYear}</p>
+            </div>
+        )
+    }
+
+    function obtenirIconeVariationPredictive(prixDerniereSeance: number, prixPredict: number, date: string) {
         var variation = ((prixPredict - prixDerniereSeance) / prixDerniereSeance) * 100;
         
         if (variation < -9 ) {
             return (
                 <div>
-                    <Tooltip title={"Predicted : " + prixPredict} placement="left-start">
+                    <Tooltip title={getTooltip(prixDerniereSeance, prixPredict, date)} placement="left-start">
                         <KeyboardDoubleArrowDownIcon sx={{ fontSize: 17 }} style={{ color: "red" }} />
                     </Tooltip>
                 </div>
@@ -33,7 +55,7 @@ export default function PositionRow({positions}: any) {
         } else if (variation < 0) {
             return (
                 <div>
-                    <Tooltip title={"Predicted : " + prixPredict} placement="left-start">
+                    <Tooltip title={getTooltip(prixDerniereSeance, prixPredict, date)} placement="left-start">
                         <KeyboardArrowDownIcon sx={{ fontSize: 17 }} style={{ color: "red" }} />
                     </Tooltip>
                 </div>
@@ -41,7 +63,7 @@ export default function PositionRow({positions}: any) {
         } else if (variation > 9) {
             return (
             <div>
-                <Tooltip title={"Predicted : " + prixPredict} placement="left-start">
+                <Tooltip title={getTooltip(prixDerniereSeance, prixPredict, date)} placement="left-start">
                     <KeyboardDoubleArrowUpIcon sx={{ fontSize: 17 }} style={{ color: "#5edd23" }} />
                 </Tooltip>
             </div>
@@ -49,7 +71,7 @@ export default function PositionRow({positions}: any) {
         } else {
             return (
                 <div>
-                    <Tooltip title={"Predicted : " + prixPredict} placement="left-start">
+                    <Tooltip title={getTooltip(prixDerniereSeance, prixPredict, date)} placement="left-start">
                         <KeyboardArrowUpIcon sx={{ fontSize: 17 }} style={{ color: "#5edd23" }} />
                     </Tooltip>
                 </div>
@@ -63,54 +85,54 @@ export default function PositionRow({positions}: any) {
                 <Table sx={{ width: "100%" }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                        <TableCell
-                            align="left"
-                            style={{ fontSize: fontSize, padding: padding }}
-                        >
-                            Symbol
-                        </TableCell>
-                        <TableCell
-                            align="left"
-                            style={{ fontSize: fontSize, padding: padding }}
-                        >
-                            Name
-                        </TableCell>
-                        <TableCell
-                            align="left"
-                            style={{ fontSize: fontSize, padding: padding }}
-                        >
-                            Change
-                        </TableCell>
-                        <TableCell
-                            align="left"
-                            style={{ fontSize: fontSize, padding: padding }}
-                        >
-                            Price
-                        </TableCell>
-                        <TableCell
-                            align="left"
-                            style={{ fontSize: fontSize, padding: padding }}
-                        >
-                            PRU
-                        </TableCell>
-                        <TableCell
-                            align="left"
-                            style={{ fontSize: fontSize, padding: padding }}
-                        >
-                            Vol.
-                        </TableCell>
-                        <TableCell
-                            align="left"
-                            style={{ fontSize: fontSize, padding: padding }}
-                        >
-                            Value
-                        </TableCell>
-                        <TableCell
-                            align="center"
-                            style={{ fontSize: fontSize, padding: padding }}
-                        >
-                            +/- 
-                        </TableCell>
+                            <TableCell
+                                align="left"
+                                style={{ fontSize: fontSize, padding: padding }}
+                            >
+                                Symbol
+                            </TableCell>
+                            <TableCell
+                                align="left"
+                                style={{ fontSize: fontSize, padding: padding }}
+                            >
+                                Name
+                            </TableCell>
+                            <TableCell
+                                align="left"
+                                style={{ fontSize: fontSize, padding: padding }}
+                            >
+                                Change
+                            </TableCell>
+                            <TableCell
+                                align="left"
+                                style={{ fontSize: fontSize, padding: padding }}
+                            >
+                                Price
+                            </TableCell>
+                            <TableCell
+                                align="left"
+                                style={{ fontSize: fontSize, padding: padding }}
+                            >
+                                PRU
+                            </TableCell>
+                            <TableCell
+                                align="left"
+                                style={{ fontSize: fontSize, padding: padding }}
+                            >
+                                Vol.
+                            </TableCell>
+                            <TableCell
+                                align="left"
+                                style={{ fontSize: fontSize, padding: padding }}
+                            >
+                                Value
+                            </TableCell>
+                            <TableCell
+                                align="center"
+                                style={{ fontSize: fontSize, padding: padding }}
+                            >
+                                +/- 
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -122,9 +144,17 @@ export default function PositionRow({positions}: any) {
                             >
                                 <TableCell
                                     align="left"
-                                    style={{ fontSize: fontSize, padding: padding }}
+                                    style={{ 
+                                        position: "relative",
+                                        fontSize: fontSize, 
+                                        padding: padding 
+                                    }}
                                     >
-                                    {row.symbol.split(".PA")[0]}
+                                        {row.symbol.split(".PA")[0]}
+                                        <Tooltip title={getZoomTooltip(row)} placement="bottom-start">
+                                            <div className="position-tooltip-zoom">
+                                            </div>
+                                        </Tooltip>
                                 </TableCell>
                                 <TableCell
                                     align="left"
@@ -150,7 +180,7 @@ export default function PositionRow({positions}: any) {
                                         {Number(row.data.variation).toFixed(2)}
                                         <div className="position-predict-arrow">
                                             {
-                                                obtenirIconeVariationPredictive(row.data.lastPrice, row.predict.price)
+                                                obtenirIconeVariationPredictive(row.data.lastPrice, row.predict.price, row.predict.date)
                                             }
                                         </div>
                                 </TableCell>

@@ -39,6 +39,7 @@ export default function Dashboard() {
         var start_date: any = new Date()
         start_date.setMonth(start_date.getMonth() - 1);
         var end_date: any = new Date()
+        end_date.setDate(end_date.getDate() + 1)
 
         start_date = start_date.toISOString().split("T")[0]
         end_date = end_date.toISOString().split("T")[0]
