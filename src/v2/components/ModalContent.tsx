@@ -13,6 +13,21 @@ import TableRow from "@mui/material/TableRow";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 
+const tagsStyles: any = {
+    "etf": {
+        "background": "linear-gradient(to right bottom, #0093E9, #80C5D0e0)",
+        "color": "#0093E9"
+    },
+    "action": {
+        "background": "linear-gradient(to right bottom, #57CA22, #91CA22e0)",
+        "color": "#57CA22"
+    },
+    "crypto": {
+        "background": "linear-gradient(to right bottom, #FC6835, #FC9235e0)",
+        "color": "#FC6835"
+    }
+}
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -65,7 +80,11 @@ export default function ModalContent({positions, positionsHist}: any) {
                 return
             }
 
+            var deposits: any = []
+
             var newPositions: any = []
+
+            var tags: any = {"etf": {total: 0, total_before: 0, variation: 0}, "action": {total: 0, total_before: 0, variation: 0}, "crypto": {total: 0, total_before: 0, variation: 0}}
 
             var hist_before = positionsHist[key + 1]
 
@@ -80,6 +99,13 @@ export default function ModalContent({positions, positionsHist}: any) {
                 var position_before = hist_before.positions.find((e: any) => e.symbol === position.symbol)
 
                 var variation = ((position.price - position_before.price) / position_before.price) * 100
+
+                if (position.volume !== position_before.volume) {
+                    deposits.push({symbol: position.symbol, value: position.price * (position.volume - position_before.volume)})
+                }
+                
+                tags[position_info.tag].total = tags[position_info.tag].total + (position.volume * position.price)
+                tags[position_info.tag].total_before = tags[position_info.tag].total_before + (position.volume * position_before.price)
                 
                 newPositions.push({
                     ...position, 
@@ -87,7 +113,7 @@ export default function ModalContent({positions, positionsHist}: any) {
                     link: position_info.link, 
                     name: position_info.name, 
                     tag: position_info.tag,
-                    plusvalue: (position.price * position.volume) - (position_before.price * position_before.volume)
+                    plusvalue: (position.price * position.volume) - (position_before.price * position.volume)
                 })
 
             });
@@ -102,9 +128,21 @@ export default function ModalContent({positions, positionsHist}: any) {
                 return total + budgetElement;
             }, 0)
 
+            const total_deposit = deposits.reduce((total: any, objet: any) => {
+                return total + objet.value;
+            }, 0)
+
+            tags["etf"].variation = ((tags["etf"].total - tags["etf"].total_before) / tags["etf"].total_before) * 100
+            tags["action"].variation = ((tags["action"].total - tags["action"].total_before) / tags["action"].total_before) * 100
+            tags["crypto"].variation = ((tags["crypto"].total - tags["crypto"].total_before) / tags["crypto"].total_before) * 100
+
             element.variation = ((total - total_before) / total_before) * 100
             element.total = total
             element.benefice = total - total_before
+            element.deposits = deposits
+            element.deposit = total_deposit
+
+            element.tags = tags
             
             element.positions = newPositions.sort((a: any, b: any) => b.variation - a.variation)
 
@@ -137,43 +175,90 @@ export default function ModalContent({positions, positionsHist}: any) {
                             <div>
                                 <div className="modal-last-days-resume">
                                     <h1>Day Resume</h1>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            paddingTop: "2vh",
-                                        }}>
-                                            <div>
-                                                <h3>{element.total.toFixed(1)} €</h3>
-                                            </div>
-                                            <div style={{margin: "auto auto 0px 10px"}}>
-                                                <h5
-                                                    style={{
-                                                        color: element.variation < 0 ? "red" : "#5edd23",
-                                                    }}>
-                                                    {element.benefice > 0 ? "+ ": ""}
-                                                    {element.benefice.toFixed(0)} €
-                                                </h5>
-                                            </div>
+                                    <div>
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                paddingTop: "6vh",
+                                                flex: "3",
+                                                minWidth: "40%"
+                                            }}>
+                                                <div>
+                                                    <h3>{element.total.toFixed(1)} €</h3>
+                                                </div>
+                                                <div style={{margin: "auto auto 0px 10px"}}>
+                                                    <h5
+                                                        style={{
+                                                            color: element.variation < 0 ? "red" : "#5edd23",
+                                                        }}>
+                                                        {element.benefice > 0 ? "+ ": ""}
+                                                        {element.benefice.toFixed(0)} €
+                                                    </h5>
+                                                </div>
+                                        </div>
+                                        <h4
+                                            style={{
+                                                color: element.variation < 0 ? "red" : "#5edd23",
+                                            }}>{
+                                            element.variation > 0 ? 
+                                                <TrendingUpIcon
+                                                className="icon"
+                                                sx={{ fontSize: 25 }}
+                                                style={{ backgroundColor: "#ffffffe0", color: "#388116" }}
+                                                />
+                                            :
+                                                <TrendingDownIcon
+                                                className="icon"
+                                                sx={{ fontSize: 25 }}
+                                                style={{ backgroundColor: "#ffffffe0", color: "red" }}
+                                                />
+                                            }
+                                            {element.variation.toFixed(2)} %
+                                        </h4>
                                     </div>
-                                    <h4
-                                        style={{
-                                            color: element.variation < 0 ? "red" : "#5edd23",
-                                        }}>{
-                                        element.variation > 0 ? 
-                                            <TrendingUpIcon
-                                            className="icon"
-                                            sx={{ fontSize: 25 }}
-                                            style={{ backgroundColor: "#ffffffe0", color: "#388116" }}
-                                            />
-                                        :
-                                            <TrendingDownIcon
-                                            className="icon"
-                                            sx={{ fontSize: 25 }}
-                                            style={{ backgroundColor: "#ffffffe0", color: "red" }}
-                                            />
+                                    <div className="modal-last-days-tags">
+                                        {
+                                            ["etf", "action", "crypto"].map((tag: string, index: number) => {
+                                                try {
+                                                    return (
+                                                        <div key={index}>
+                                                            <div>
+                                                                <h3>{tag.toLocaleUpperCase()}</h3>
+                                                                <h4
+                                                                    style={{
+                                                                        color: element.tags[tag].variation < 0 ? "red" : "#5edd23",
+                                                                    }}
+                                                                    >
+                                                                    {Number(element.tags[tag].variation) > 0 ? "+": ""}
+                                                                    {Number(element.tags[tag].variation).toFixed(2) + " %"}
+                                                                </h4>
+                                                            </div>
+                                                            <h4>{Number(element.tags[tag].total).toFixed(2) + " €"}</h4>
+                                                        </div>
+                                                    )
+                                                } catch (error) {
+                                                    return null
+                                                }
+                                            })
                                         }
-                                        {element.variation.toFixed(2)} %
-                                    </h4>
+                                    </div>
+                                    {
+                                        element.deposit > 0 ?
+                                        <div className="modal-last-days-deposits">
+                                            <div style={{display: "flex"}}>
+                                                <h3>Deposits:</h3>
+                                                <h4>+ {element.deposit.toFixed(2)} €</h4>
+                                            </div>
+                                            {
+                                                element.deposits.map((deposit: any, index: number) => {
+                                                    return <p key={index}>{deposit.symbol} - {deposit.value.toFixed(2)}</p>
+                                                })
+                                            }
+                                        </div>
+                                        :
+                                        <div className="modal-last-days-deposits" style={{backgroundColor: "#ffffff00"}}>
+                                        </div>
+                                    }
                                 </div>
                                 <TableContainer>
                                     <Table sx={{ width: "100%" }} aria-label="simple table">
@@ -241,9 +326,12 @@ export default function ModalContent({positions, positionsHist}: any) {
                                                         style={{ 
                                                             position: "relative",
                                                             fontSize: fontSize, 
-                                                            padding: padding 
+                                                            padding: padding,
+                                                            backgroundImage: tagsStyles[row.tag].background,
+                                                            color: "#F1F1F1"
                                                         }}
                                                         >
+                                                            {console.log(tagsStyles[row.tag].background)}
                                                             {row.symbol.split(".PA")[0]}
                                                     </TableCell>
                                                     <TableCell
