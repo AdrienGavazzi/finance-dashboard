@@ -19,7 +19,7 @@ const renderTooltip = (e: any) => {
 };
 
 
-export default function BottomPanel({positions, positionsHist}: any) {
+export default function BottomPanel({positions, positionsOld, positionsHist}: any) {
     
     const [lineSeries, setLineSeries] = React.useState<any>([]);
     const [lineSeriesDeposit, setLineSeriesDeposit] = React.useState<any>([]);
@@ -200,7 +200,7 @@ export default function BottomPanel({positions, positionsHist}: any) {
                         <CloseIcon sx={{ fontSize: 30 }} />
                     </div>
                     <div className="modal-last-days-content">
-                        <ModalContent positions={positions} positionsHist={positionsHist} />
+                        <ModalContent positions={positions} positionsOld={positionsOld} positionsHist={positionsHist} />
                     </div>
                 </div>
             </Modal>

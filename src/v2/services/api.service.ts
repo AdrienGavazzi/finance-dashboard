@@ -10,6 +10,10 @@ export default class ApiService {
         return await axios.get(this.url + "/positions", {headers: { authorization: "Bearer " + getToken() }})
     }
 
+    public static async getPositionsListOld(): Promise<any> {
+        return await axios.get(this.url + "/positions/list/old", {headers: { authorization: "Bearer " + getToken() }})
+    }
+
     public static async getPositionsList(): Promise<any> {
         return await axios.get(this.url + "/positions/list", {headers: { authorization: "Bearer " + getToken() }})
     }

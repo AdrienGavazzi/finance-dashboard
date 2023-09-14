@@ -12,6 +12,7 @@ import TableRow from "@mui/material/TableRow";
 
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
+import ApiService from "../services/api.service";
 
 const tagsStyles: any = {
     "etf": {
@@ -65,7 +66,7 @@ const fontSize = "12px";
 const padding = "10px 10px";
 
 
-export default function ModalContent({positions, positionsHist}: any) {
+export default function ModalContent({positions, positionsOld, positionsHist}: any) {
     const [value, setValue] = React.useState(0);
     const [data, setData] = React.useState<any>([]);
 
@@ -94,27 +95,43 @@ export default function ModalContent({positions, positionsHist}: any) {
 
             element.positions.forEach((position: any, index: any) => {
 
-                var position_info = positions.find((e: any) => e.symbol === position.symbol)
+                try {
 
-                var position_before = hist_before.positions.find((e: any) => e.symbol === position.symbol)
+                    var position_info = positions.find((e: any) => e.symbol === position.symbol)
 
-                var variation = ((position.price - position_before.price) / position_before.price) * 100
+                    if (!position_info) {
+                        position_info = positionsOld.find((e: any) => e.symbol === position.symbol)
+                    }
 
-                if (position.volume !== position_before.volume) {
-                    deposits.push({symbol: position.symbol, value: position.price * (position.volume - position_before.volume)})
+                    var position_before = hist_before.positions.find((e: any) => e.symbol === position.symbol)
+
+                    var variation = 0
+
+                    if (position_before) {
+
+                        variation = ((position.price - position_before.price) / position_before.price) * 100
+
+                        if (position.volume !== position_before.volume) {
+                            deposits.push({symbol: position.symbol, value: position.price * (position.volume - position_before.volume)})
+                        }
+                        
+                        tags[position_info.tag].total = tags[position_info.tag].total + (position.volume * position.price)
+                        tags[position_info.tag].total_before = tags[position_info.tag].total_before + (position.volume * position_before.price)
+                        
+                    }
+
+                    newPositions.push({
+                        ...position, 
+                        variation,
+                        link: position_info.link, 
+                        name: position_info.name, 
+                        tag: position_info.tag,
+                        plusvalue: (position.price * position.volume) - (position_before.price * position.volume)
+                    })
+
+                } catch (error) {
+                    console.log(error, position.symbol)
                 }
-                
-                tags[position_info.tag].total = tags[position_info.tag].total + (position.volume * position.price)
-                tags[position_info.tag].total_before = tags[position_info.tag].total_before + (position.volume * position_before.price)
-                
-                newPositions.push({
-                    ...position, 
-                    variation,
-                    link: position_info.link, 
-                    name: position_info.name, 
-                    tag: position_info.tag,
-                    plusvalue: (position.price * position.volume) - (position_before.price * position.volume)
-                })
 
             });
 
@@ -331,7 +348,7 @@ export default function ModalContent({positions, positionsHist}: any) {
                                                             color: "#F1F1F1"
                                                         }}
                                                         >
-                                                            {console.log(tagsStyles[row.tag].background)}
+                                                            {/* {console.log(tagsStyles[row.tag].background)} */}
                                                             {row.symbol.split(".PA")[0]}
                                                     </TableCell>
                                                     <TableCell

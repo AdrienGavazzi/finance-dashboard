@@ -4,11 +4,13 @@ import ApiService from "../services/api.service";
 
 import "../styles/styles.css";
 import BottomPanel from "../components/BottomPanel";
+import { set } from "date-fns";
 
 
 export default function Dashboard() {
 
     const [positions, setPositions] = React.useState<any[]>([]);
+    const [positionsOld, setPositionsOld] = React.useState<any[]>([]);
     const [positionsHist, setPositionsHist] = React.useState<any[]>([]);
 
     useEffect(() => {
@@ -36,6 +38,10 @@ export default function Dashboard() {
             })
         })
 
+        ApiService.getPositionsListOld().then((response) => {
+            setPositionsOld(response.data.data)
+        })
+
         var start_date: any = new Date()
         start_date.setMonth(start_date.getMonth() - 1);
         var end_date: any = new Date()
@@ -57,7 +63,7 @@ export default function Dashboard() {
                 <PositionTable positions={positions} positionsHist={positionsHist} />
             </div>
             <div className="overview-graph">
-                <BottomPanel positions={positions} positionsHist={positionsHist} />
+                <BottomPanel positions={positions} positionsOld={positionsOld} positionsHist={positionsHist} />
             </div>
         </div>
     )
