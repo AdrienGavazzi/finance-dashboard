@@ -1,0 +1,16 @@
+.flexbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexbox > div {
+    flex: 1;
+    padding: 10px;
+}
+
+.flexbox > button {
+    flex: 1;
+    padding: 10px;
+    margin: auto;
+    height: fit-content;
+}

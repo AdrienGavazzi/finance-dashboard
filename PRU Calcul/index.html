@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de PRU</title>
+    <link rel="icon" href="https://finance.gavazziadrien.fr/favicon.ico">
+    <!-- Inclure Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Calculateur de PRU</h1>
+        <form id="pruCalculator">
+            <div class="form-group">
+                <label for="depositAmount">Montant total du dépôt :</label>
+                <input type="number" class="form-control" id="depositAmount" placeholder="Entrez le montant total du dépôt" required>
+            </div>
+            <div class="flexbox">
+                <div class="form-group">
+                    <label for="ethQuantity">Quantité d'ETH :</label>
+                    <input type="number" class="form-control" id="ethQuantity" placeholder="Entrez la quantité d'ETH" required>
+                    <label for="ethPrice">Prix de l'ETH :</label>
+                    <input type="number" class="form-control" id="ethPrice" placeholder="Entrez le prix de l'ETH" required>
+                </div>
+                <div class="form-group">
+                    <label for="btcQuantity">Quantité de BTC :</label>
+                    <input type="number" class="form-control" id="btcQuantity" placeholder="Entrez la quantité de BTC" required>
+                    <label for="btcPrice">Prix du BTC :</label>
+                    <input type="number" class="form-control" id="btcPrice" placeholder="Entrez le prix du BTC" required>
+                </div>
+                <div class="form-group">
+                    <label for="bethQuantity">Quantité de BETH :</label>
+                    <input type="number" class="form-control" id="bethQuantity" placeholder="Entrez la quantité de BETH" required>
+                    <label for="bethPrice">Prix du BETH :</label>
+                    <input type="number" class="form-control" id="bethPrice" placeholder="Entrez le prix du BETH" required>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="calculatePRU()">Calculer PRU</button>
+        </form>
+        <div class="mt-3">
+            <h4>Résultats :</h4>
+            <p><strong>PRU d'ETH :</strong> <span id="ethPRU"></span></p>
+            <p><strong>PRU de BTC :</strong> <span id="btcPRU"></span></p>
+            <p><strong>PRU de BETH :</strong> <span id="bethPRU"></span></p>
+        </div>
+    </div>
+
+    <!-- Inclure jQuery et Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
